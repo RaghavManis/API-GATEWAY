@@ -1,3 +1,5 @@
+const bcrypt = require("bcrypt") ;
+const {ServerConfig} = require("../config") ;
 'use strict';
 const {
   Model
@@ -33,5 +35,11 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Users',
   });
+  Users.beforeCreate(function encrypt(user){ // user is the js User object (that is input given by the user)
+    console.log("password before encryption is -->" + user.password) ;
+    const encryptedPassword = bcrypt.hashSync(user.password , +ServerConfig.SALT_ROUNDS) ; // this line is enough for encryption of the password 
+    user.password = encryptedPassword ;
+    console.log("password after encryption is -->" + user.password) ;
+  })
   return Users;
 };
