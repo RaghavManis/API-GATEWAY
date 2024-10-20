@@ -21,12 +21,13 @@ async function createToken(input ){ // if password will match then this create t
         throw error ;
     }
 }
-function verifyToken(token){
+async function verifyToken(token){
     try {
-        return jwt.verify(token , ServerConfig.JWT_SECRET) ; // we are passing jwt_secret , this will the thing by which token will be verift 
-        // return response ;
+        const response = await jwt.verify(token , ServerConfig.JWT_SECRET) ; // we are passing jwt_secret , this will the thing by which token will be verift 
+        return response ;
     } catch (error) {
-        console.log("error inside the virufy token in auth.js in common in utills --> " + error ) ;
+        console.log("error inside the virify token in auth.js in common in utills --> " + error ) ;
+        throw error ;
     }
 }
 
