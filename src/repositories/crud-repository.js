@@ -10,7 +10,6 @@ class crudRepository{
     async create(data){ 
         console.log("inside create function in crud repo") ;
         const response = await this.model.create(data) ;
-        console.log("response in create in crud repo --> " + response)
         return response ;
     }
     

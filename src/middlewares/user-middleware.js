@@ -1,6 +1,8 @@
-const {StatusCodes} = require("http-status-codes") ;
-const {ErrorResponse} = require("../utills/common") ;
+const { StatusCodes } = require("http-status-codes") ;
+const { ErrorResponse } = require("../utills/common") ;
 const AppError = require("../utills/error/app-error");
+const { UserService } = require("../services") ;
+
 function validateUserSignup(req , res , next){
     if(!req.body.email){
         console.log("inside user middleware , email varification ") ;
@@ -20,8 +22,24 @@ function validateUserSignup(req , res , next){
     next() ;
 }
 
+async function checkAuth(req , res , next){
+    try {
+        const response = await UserService.isAuthenticated(req.headers['x-access-token']) ;
+        console.log("response in chechAuth --> " + response) ;
+        if(response){
+            req.user = response ;
+            // req.body.user = response ;
+        }
+        console.log("inside checkAuth in user middleware") ;
+        next() ;
+    } catch (error) {
+        return res
+                 .status(error.statusCode)
+                 .json(error) ;
+    }
+}
 
 module.exports = {
     validateUserSignup ,
-
+    checkAuth ,
 }

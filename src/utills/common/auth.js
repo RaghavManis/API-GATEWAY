@@ -21,8 +21,17 @@ async function createToken(input ){ // if password will match then this create t
         throw error ;
     }
 }
+function verifyToken(token){
+    try {
+        return jwt.verify(token , ServerConfig.JWT_SECRET) ; // we are passing jwt_secret , this will the thing by which token will be verift 
+        // return response ;
+    } catch (error) {
+        console.log("error inside the virufy token in auth.js in common in utills --> " + error ) ;
+    }
+}
 
 module.exports = {
     checkPassword , 
-    createToken
+    createToken ,
+    verifyToken ,
 }
