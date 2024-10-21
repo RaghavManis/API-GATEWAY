@@ -27,10 +27,11 @@ async function checkAuth(req , res , next){
         const response = await UserService.isAuthenticated(req.headers['x-access-token']) ;
         console.log("response in chechAuth --> " + response) ;
         if(response){
-            req.user = response ;
-            // req.body.user = response ;
+            req.user = response ; 
+            // req.body.user = response ; // no you can't do that , giving not defined 
         }
         console.log("inside checkAuth in user middleware") ;
+        console.log("inside checkAuth function in chechAuth middleware, req object is -->  " + req.user) ;
         next() ;
     } catch (error) {
         return res

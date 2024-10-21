@@ -33,6 +33,11 @@ async function signin(data){
         }
 
         // second step , if user exist then check for the password 
+        // QUESTION --> why don't you ask question here , that we are not manually comparing the password when instead of comparing by 
+        //              compareSync function of bcrypt when we have both password 
+        // ANSWER -- > ans is simple that we have both password but one of that (which is import from db to compare) is in encrypted 
+        //             form and direct comparison is not possible and we don't have any technique to dcrypt that passsword in plain 
+        //             password .......encryption is one way technique
         const passwordMatch = await Auth.checkPassword(data.password , user.password) ;
         if(!passwordMatch){
             throw new AppError("invalid password , try again " , StatusCodes.BAD_REQUEST) ;

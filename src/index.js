@@ -7,8 +7,8 @@ const { ServerConfig } = require('./config');
 const apiRoutes = require('./routes');
 
 const limiter = rateLimit({
-    windowMs: 2 * 60 * 1000, // 15 minutes window
-    max: 3 , // Limit each IP to 100 requests per windowMs
+    windowMs: 200 * 60 * 1000, // 2 minutes window
+    max: 3000 , // Limit each IP to 3 requests per windowMs
     message: 'Too many requests from this IP, please try again after 15 minutes.',
 })
 

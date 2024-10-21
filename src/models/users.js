@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      this.belongsToMany(models.role, {through: 'user_role', as: 'user'});
     }
   }
   Users.init({
@@ -35,8 +36,12 @@ module.exports = (sequelize, DataTypes) => {
     sequelize,
     modelName: 'Users',
   });
+
+  // encryot function is not inbuilt is totally up to you 
   Users.beforeCreate(function encrypt(user){ // user is the js User object (that is input given by the user)
     // console.log("password before encryption is -->" + user.password) ;
+
+    // sreverConfig.SALT_ROUNDS is a number which we are passing for number of times of hashing 
     const encryptedPassword = bcrypt.hashSync(user.password , +ServerConfig.SALT_ROUNDS) ; // this line is enough for encryption of the password 
     user.password = encryptedPassword ;
     // console.log("password after encryption is -->" + user.password) ;

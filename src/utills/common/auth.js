@@ -12,6 +12,18 @@ async function checkPassword(plainPassword , encrypyPassword){  // checking that
     }
 }
 
+
+/**
+ * 
+ * jwt.sign():
+ * 
+ * -> This method is used to create the JWT.
+ * -> jwt.sign(payload, secretOrPrivateKey, options) takes three arguments:
+ * -> payload: This is the data you want to include in the token. In this case, it’s {id: user.id, email: user.email}.
+ * -> secretOrPrivateKey: This is the secret key used to sign the token (ServerConfig.JWT_SECRET). 
+ *    It ensures the token can be verified later by the server.
+ * -> options: Additional configurations like expiration time are provided here. expiresIn specifies how long the token will remain valid.
+ */
 async function createToken(input ){ // if password will match then this create token function will be called inside the user service
     try {
         const response = await jwt.sign(input , ServerConfig.JWT_SECRET , {expiresIn : ServerConfig.JWT_EXPIRY} ) ;
