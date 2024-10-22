@@ -17,7 +17,7 @@ async function signup(req , res){
         return res.status(StatusCodes.CREATED)
                   .json(SuccessResponse)
     } catch (error) {
-        console.log("inside signup in controller , error is ---> " + error );
+        console.log("inside signup in controller , error is ---------------------------------------------------------------------------> " + error );
         ErrorResponse.error = error ;
         return res
                 .status(error.statusCode)

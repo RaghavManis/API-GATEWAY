@@ -10,18 +10,18 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       email: {
-        type: Sequelize.STRING , 
-        allowNull : false ,
-        unique : true ,
-        validate : {
-          isEmail : true ,
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true,
+        validate: {
+          isEmail: true
         }
       },
       password: {
-        type: Sequelize.STRING ,
-        allowNull : false  ,
-        validate : {
-          len : [3 , 50] ,
+        type: Sequelize.STRING,
+        allowNull: false,
+        validate: {
+          len: [3, 50]
         }
       },
       createdAt: {

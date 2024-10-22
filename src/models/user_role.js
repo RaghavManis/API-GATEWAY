@@ -1,30 +1,36 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
-  class user_role extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+  class UserRole extends Model {
+    static associate(models) {    // we don't need this definition if we just only want to associate two table as many to many , does not want any extra column to user role model 
+      // Define the foreign key relationships
+      this.belongsTo(models.User, { foreignKey: 'userId' });
+      this.belongsTo(models.Role, { foreignKey: 'roleId' });
     }
   }
-  user_role.init({
-    user_id:{
-      type : DataTypes.INTEGER ,
-      allowNull : false ,
-    } ,
-    role_id:{
-      type : DataTypes.INTEGER ,
-      allowNull : false , 
-    } 
+
+  UserRole.init({
+    userId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Users', // or 'User' if following model names
+        key: 'id'
+      }
+    },
+    roleId: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: 'Roles', // or 'Role' if following model names
+        key: 'id'
+      }
+    }
   }, {
     sequelize,
-    modelName: 'user_role',
+    modelName: 'UserRole',
   });
-  return user_role;
+
+  return UserRole;
 };
