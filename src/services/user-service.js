@@ -102,8 +102,31 @@ async function isAuthenticated(token) {
     }
 }
 
+async function addRoleToUser(data){
+    try {
+        const user = await userRepository.get(data.id) ;
+        if(!user){
+            throw new AppError("user not found for adding role(inside addRolToUser in user service)" , StatusCodes.NOT_FOUND) ;
+        }
+        const role = await roleRepository.getRoleByName(data.role) ;
+        if(!role){
+            throw new AppError("can niot find the role for adding to the user(inside addRolToUser in user service)" , StatusCodes.NOT_FOUND) ;
+        }
+        // now when we have both the data , then it's time to add role to user 
+        await sequelize.models.UserRole.create({
+            userId: user.id,
+            roleId: role.id
+        }, { fields: ['userId', 'roleId'] });
+
+    } catch (error) {
+        if(error instanceof AppError) throw error ;
+        throw new AppError("something went wrong in addRolToUser inside user service " , StatusCodes.INTERNAL_SERVER_ERROR) ;
+    }
+}
+
 module.exports = {
     signup,
     signin,
     isAuthenticated,
+    addRoleToUser
 };
