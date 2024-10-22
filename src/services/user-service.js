@@ -5,6 +5,7 @@ const { Auth } = require("../utills/common");
 const { Enums } = require("../utills/common");
 const { CUSTOMER } = Enums.USER_ROLE_ENUMS;
 const AppError = require("../utills/error/app-error");
+const { ServerConfig } = require('../config');
 
 const userRepository = new UserRepository();
 const roleRepository = new RoleRepository();
@@ -124,9 +125,26 @@ async function addRoleToUser(data){
     }
 }
 
+async function isAdmin(id){
+    try {
+        const user = await userRepository.get(id) ;
+        if(!user){
+            throw new AppError("user not found for adding role(inside isAdmin in user service)" , StatusCodes.NOT_FOUND) ;
+        }
+        const role = await roleRepository.getRoleByName(Enums.USER_ROLE_ENUMS.ADMIN) ;
+        if(!role){
+            throw new AppError("can not find the role for adding to the user(inside isAdmin in user service)" , StatusCodes.NOT_FOUND) ;
+        }
+        return user.hasRole(role) ;
+    } catch (error) {
+        if(error instanceof AppError) throw error ;
+        throw new AppError("something went wrong in addRolToUser inside user service " , StatusCodes.INTERNAL_SERVER_ERROR) ;
+    }
+}
 module.exports = {
     signup,
     signin,
     isAuthenticated,
-    addRoleToUser
+    addRoleToUser , 
+    isAdmin
 };

@@ -52,7 +52,7 @@ async function signin(req , res){
 async function addRoleToUser(req , res){
     try {
         const response = await UserService.addRoleToUser({
-            id : req.body.id ,
+            id : req.body.id ,  // here the id we are using is the id which role we want to change , not the id for which we checking that is it admin or not, that id is coming from the token, when we sign in 
             role : req.body.role ,
         })
         SuccessResponse.data = response ;
@@ -66,6 +66,7 @@ async function addRoleToUser(req , res){
                 .json(ErrorResponse) ;
     }
 }
+
 
 module.exports = {
     signup ,
