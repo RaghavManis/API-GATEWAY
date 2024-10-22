@@ -7,6 +7,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
+        
       // Define many-to-many relationship with Role
       this.belongsToMany(models.Role, { through: 'UserRole', as: 'roles' });
 
@@ -21,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
       
     }
   }
-
+  // nothing to do in definition of attributes of model just update static associate method accordingly 
   User.init({
     email: {
       type: DataTypes.STRING,

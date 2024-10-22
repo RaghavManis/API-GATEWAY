@@ -9,6 +9,8 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
+      // below code is required for many to many association 
+     
       userId: {
         type: Sequelize.INTEGER,
         allowNull: false,
@@ -29,6 +31,8 @@ module.exports = {
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
       },
+      
+      // above code is required for many to many association 
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

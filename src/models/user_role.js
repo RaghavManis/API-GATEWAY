@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
 
+  // here we have to do some chedchad with attributes 
   UserRole.init({
     userId: {
       type: DataTypes.INTEGER,
@@ -27,6 +28,7 @@ module.exports = (sequelize, DataTypes) => {
         key: 'id'
       }
     }
+    // untill above 
   }, {
     sequelize,
     modelName: 'UserRole',

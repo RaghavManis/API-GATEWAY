@@ -6,6 +6,7 @@ const { ADMIN, CUSTOMER, FLIGHT_COMPANY } = Enums.USER_ROLE_ENUMS;
 module.exports = (sequelize, DataTypes) => {
   class Role extends Model {
     static associate(models) {
+      
       // Define many-to-many relationship with User(when we have created an extra model) ;
       this.belongsToMany(models.User, { through: 'UserRole', as: 'users' });
 
@@ -18,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         *   otherKey: 'userId',
         * });
        */
+      
     }
   }
 
