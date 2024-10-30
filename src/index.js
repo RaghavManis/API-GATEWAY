@@ -26,7 +26,8 @@ app.use(limiter) ;
  *                            localhost:3001 (API Gateway)
  *                                        |
  *                                        v
- *        localhost:3000/api/v1/flights       localhost:4000/api/v1/bookings
+ *                                       / \
+ *         localhost:3000/api/v1/flights     localhost:4000/api/v1/bookings
  */
  
 // localhost:5000/flightService/api/get/info =====> localhost:3000/api/get/info
