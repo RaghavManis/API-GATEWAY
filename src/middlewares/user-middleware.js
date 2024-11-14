@@ -21,7 +21,7 @@ function validateUserSignup(req , res , next){
                  .json(ErrorResponse) ;
     }
     next() ;
-}
+} 
 
 async function checkAuth(req , res , next){
     try {
